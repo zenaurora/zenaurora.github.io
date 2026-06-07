@@ -27,6 +27,44 @@
   color-scheme: light dark;
 }
 
+/* Gruvbox Dark Theme */
+:root[data-theme="gruvbox-dark"] {
+  --color-gruvbox-bg0: #282828;
+  --color-gruvbox-bg1: #3c3836;
+  --color-gruvbox-bg2: #504945;
+  --color-gruvbox-fg0: #f9f5d7;
+  --color-gruvbox-fg1: #ebdbb2;
+  --color-gruvbox-fg2: #d5c4a1;
+  
+  --color-gruvbox-red-dark: #cc241d;
+  --color-gruvbox-red-light: #fb4934;
+  --color-gruvbox-green-dark: #98971a;
+  --color-gruvbox-green-light: #b8bb26;
+  --color-gruvbox-yellow-dark: #d79921;
+  --color-gruvbox-yellow-light: #fabd2f;
+  --color-gruvbox-blue-dark: #458588;
+  --color-gruvbox-blue-light: #83a598;
+  --color-gruvbox-purple-dark: #b16286;
+  --color-gruvbox-purple-light: #d3869b;
+  --color-gruvbox-aqua-dark: #689d6a;
+  --color-gruvbox-aqua-light: #8ec07c;
+  --color-gruvbox-orange-dark: #d65d0e;
+  --color-gruvbox-orange-light: #fe8019;
+  --color-gruvbox-gray: #a89984;
+
+  --background: #282828;
+  --foreground: #ebdbb2;
+  --primary: #83a598;
+  --primary-foreground: #282828;
+  --muted: #3c3836;
+  --muted-foreground: #928374;
+  --destructive: #fb4934;
+  --border: #504945;
+  --ring: #83a598;
+
+  color-scheme: dark;
+}
+
 *,
 ::before,
 ::after,
@@ -39,6 +77,51 @@
     outline-offset: 0.25rem;
     border-radius: var(--radius-sm);
   }
+}
+
+/* Everforest Theme */
+:root[data-theme="everforest"] {
+  --background: #2d353b;
+  --foreground: #d3c6aa;
+  --primary: #7fbbb3;
+  --primary-foreground: #2d353b;
+  --muted: #343f44;
+  --muted-foreground: #859289;
+  --destructive: #e67e80;
+  --border: #3d484d;
+  --ring: #7fbbb3;
+
+  color-scheme: dark;
+}
+
+/* Nord Theme */
+:root[data-theme="nord"] {
+  --background: #2e3440;
+  --foreground: #eceff4;
+  --primary: #88c0d0;
+  --primary-foreground: #2e3440;
+  --muted: #3b4252;
+  --muted-foreground: #81a1c1;
+  --destructive: #bf616a;
+  --border: #434c5e;
+  --ring: #88c0d0;
+
+  color-scheme: dark;
+}
+
+/* Black Gold Theme */
+:root[data-theme="blackgold"] {
+  --background: #0a0a0a;
+  --foreground: #d4af37;
+  --primary: #c9a961;
+  --primary-foreground: #0a0a0a;
+  --muted: #1a1a1a;
+  --muted-foreground: #8b7355;
+  --destructive: #ff6b6b;
+  --border: #2a2a2a;
+  --ring: #d4af37;
+
+  color-scheme: dark;
 }
 
 body {

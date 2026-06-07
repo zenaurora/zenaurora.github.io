@@ -6,6 +6,10 @@ import SunIcon from "@/assets/icons/sun.svg"
 <button id="theme-toggle" aria-label="Toggle theme">
   <light-icon><SunIcon /></light-icon>
   <dark-icon><MoonIcon /></dark-icon>
+  <gruvbox-icon>🌲</gruvbox-icon>
+  <everforest-icon>🌲</everforest-icon>
+  <nord-icon>❄️</nord-icon>
+  <blackgold-icon>👑</blackgold-icon>
 </button>
 
 <style is:global>
@@ -17,7 +21,43 @@ import SunIcon from "@/assets/icons/sun.svg"
     color-scheme: dark;
   }
 
+  :root[data-theme="gruvbox-dark"] {
+    color-scheme: dark;
+  }
+
+  :root[data-theme="everforest"] {
+    color-scheme: dark;
+  }
+
+  :root[data-theme="nord"] {
+    color-scheme: dark;
+  }
+
+  :root[data-theme="blackgold"] {
+    color-scheme: dark;
+  }
+
+  light-icon {
+    display: inline;
+  }
+
   dark-icon {
+    display: none;
+  }
+
+  gruvbox-icon {
+    display: none;
+  }
+
+  everforest-icon {
+    display: none;
+  }
+
+  nord-icon {
+    display: none;
+  }
+
+  blackgold-icon {
     display: none;
   }
 
@@ -27,6 +67,126 @@ import SunIcon from "@/assets/icons/sun.svg"
     }
 
     dark-icon {
+      display: inline;
+    }
+
+    gruvbox-icon {
+      display: none;
+    }
+
+    everforest-icon {
+      display: none;
+    }
+
+    nord-icon {
+      display: none;
+    }
+
+    blackgold-icon {
+      display: none;
+    }
+  }
+
+  :root[data-theme="gruvbox-dark"] {
+    light-icon {
+      display: none;
+    }
+
+    dark-icon {
+      display: none;
+    }
+
+    gruvbox-icon {
+      display: inline;
+    }
+
+    everforest-icon {
+      display: none;
+    }
+
+    nord-icon {
+      display: none;
+    }
+
+    blackgold-icon {
+      display: none;
+    }
+  }
+
+  :root[data-theme="everforest"] {
+    light-icon {
+      display: none;
+    }
+
+    dark-icon {
+      display: none;
+    }
+
+    gruvbox-icon {
+      display: none;
+    }
+
+    everforest-icon {
+      display: inline;
+    }
+
+    nord-icon {
+      display: none;
+    }
+
+    blackgold-icon {
+      display: none;
+    }
+  }
+
+  :root[data-theme="nord"] {
+    light-icon {
+      display: none;
+    }
+
+    dark-icon {
+      display: none;
+    }
+
+    gruvbox-icon {
+      display: none;
+    }
+
+    everforest-icon {
+      display: none;
+    }
+
+    nord-icon {
+      display: inline;
+    }
+
+    blackgold-icon {
+      display: none;
+    }
+  }
+
+  :root[data-theme="blackgold"] {
+    light-icon {
+      display: none;
+    }
+
+    dark-icon {
+      display: none;
+    }
+
+    gruvbox-icon {
+      display: none;
+    }
+
+    everforest-icon {
+      display: none;
+    }
+
+    nord-icon {
+      display: none;
+    }
+
+    blackgold-icon {
       display: inline;
     }
   }
@@ -39,6 +199,22 @@ import SunIcon from "@/assets/icons/sun.svg"
 
       dark-icon {
         display: inline;
+      }
+
+      gruvbox-icon {
+        display: none;
+      }
+
+      everforest-icon {
+        display: none;
+      }
+
+      nord-icon {
+        display: none;
+      }
+
+      blackgold-icon {
+        display: none;
       }
     }
   }
@@ -62,19 +238,29 @@ import SunIcon from "@/assets/icons/sun.svg"
       width: 1rem;
       height: 1rem;
     }
+
+    gruvbox-icon,
+    everforest-icon,
+    nord-icon,
+    blackgold-icon {
+      font-size: 1rem;
+      line-height: 1;
+    }
   }
 </style>
 
 <script>
+  const themes = ["light", "dark", "gruvbox-dark", "everforest", "nord", "blackgold"]
+
   const toggleTheme = () => {
     const root = document.documentElement
-    const dark =
-      root.dataset.theme === "dark" ||
-      (!root.dataset.theme &&
-        matchMedia("(prefers-color-scheme: dark)").matches)
-    const theme = dark ? "light" : "dark"
-    root.dataset.theme = theme
-    localStorage.theme = theme
+    const currentTheme = root.dataset.theme || "light"
+    const currentIndex = themes.indexOf(currentTheme)
+    const nextIndex = (currentIndex + 1) % themes.length
+    const nextTheme = themes[nextIndex]
+
+    root.dataset.theme = nextTheme
+    localStorage.theme = nextTheme
   }
 
   const button = document.getElementById("theme-toggle")

@@ -58,7 +58,8 @@ import { SITE } from "@/consts"
 
   <script is:inline>
     const theme = localStorage.theme
-    if (theme === "light" || theme === "dark")
+    const validThemes = ["light", "dark", "gruvbox-dark", "everforest", "nord", "blackgold"]
+    if (validThemes.includes(theme))
       document.documentElement.dataset.theme = theme
   </script>
 
