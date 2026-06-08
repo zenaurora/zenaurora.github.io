@@ -11,7 +11,8 @@ import { externalLinks } from "./src/lib/external-links"
 import { headingNamespace } from "./src/lib/heading-namespace"
 
 export default defineConfig({
-  site: "https://astro-erudite.vercel.app",
+  site: "https://zenaurora.github.io",
+  output: "static",
   prefetch: { prefetchAll: true },
   integrations: [
     sitemap({
