@@ -32,8 +32,9 @@ jobs:
         run: bun run build
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
+          name: dist
           path: ./dist
 
   deploy:
@@ -43,6 +44,12 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: ./
+
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
