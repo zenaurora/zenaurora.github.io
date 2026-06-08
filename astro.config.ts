@@ -11,7 +11,7 @@ import { externalLinks } from "./src/lib/external-links"
 import { headingNamespace } from "./src/lib/heading-namespace"
 
 export default defineConfig({
-  site: "https://zenaurora.github.io",
+  site: "https://zenaura.github.io/",
   output: "static",
   prefetch: { prefetchAll: true },
   integrations: [
