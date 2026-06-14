@@ -1,7 +1,7 @@
 ---
-title: "This is a test post"
-description: "I try a new blog architecture, and this is the first test post."
-date: 2026-06-014
+title: "My learn about minilsm"
+description: "I try a minilsm"
+date: 2026-06-14
 authors:
   - maokaihe
 image: ./assets/banner.png

@@ -112,14 +112,29 @@
 /* Black Gold Theme */
 :root[data-theme="blackgold"] {
   --background: #0a0a0a;
-  --foreground: #d4af37;
-  --primary: #c9a961;
+  --foreground: #e6cf94;
+  --primary: #d9c07a;
   --primary-foreground: #0a0a0a;
   --muted: #1a1a1a;
-  --muted-foreground: #8b7355;
+  --muted-foreground: #9e8b65;
   --destructive: #ff6b6b;
   --border: #2a2a2a;
-  --ring: #d4af37;
+  --ring: #dcc584;
+
+  color-scheme: dark;
+}
+
+/* Catppuccin Theme */
+:root[data-theme="catppuccin"] {
+  --background: #1e1e2e;
+  --foreground: #cdd6f4;
+  --primary: #b4befe;
+  --primary-foreground: #1e1e2e;
+  --muted: #313244;
+  --muted-foreground: #a6adc8;
+  --destructive: #f38ba8;
+  --border: #45475a;
+  --ring: #b4befe;
 
   color-scheme: dark;
 }
