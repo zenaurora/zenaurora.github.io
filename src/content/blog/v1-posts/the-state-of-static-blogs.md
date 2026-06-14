@@ -7,6 +7,7 @@ tags:
   - v1.0.0
 image: "./assets/the-state-of-static-blogs.png"
 authors: ['enscribe']
+draft: true
 ---
 
 ## Introduction

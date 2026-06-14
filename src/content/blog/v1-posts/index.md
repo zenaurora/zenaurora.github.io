@@ -5,6 +5,7 @@ date: 2025-05-21
 image: ./assets/banner.png
 authors:
   - enscribe
+draft: true
 ---
 
 :::caution[Out of date]

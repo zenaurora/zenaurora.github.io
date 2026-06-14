@@ -8,6 +8,7 @@ tags:
 image: "./assets/callouts-component.png"
 authors:
   - enscribe
+draft: true
 ---
 
 ## Our (hesitantly) first content-based component

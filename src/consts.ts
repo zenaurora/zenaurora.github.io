@@ -6,8 +6,8 @@ import Twitter from "@/assets/icons/twitter.svg"
 
 export const SITE = {
   title: "astro-erudite",
-  description: "An opinionated, unstyled blogging template built with Astro.",
-  author: "jktrn",
+  description: "My blog built with astro-erudite.",
+  author: "maokaihe",
   locale: "en-US",
   dir: "ltr",
   defaultPageImage: "/static/opengraph-image.png",
@@ -22,8 +22,8 @@ export const NAVIGATION = [
 ]
 
 export const SOCIALS: { href: string; label: string; icon: SvgComponent }[] = [
-  { href: "https://github.com/jktrn", label: "GitHub", icon: GitHub },
-  { href: "https://twitter.com/enscrbe", label: "Twitter", icon: Twitter },
+  { href: "https://github.com/zenaurora", label: "GitHub", icon: GitHub },
+  { href: "https://x.com/ecrofmaomao", label: "Twitter", icon: Twitter },
   { href: "mailto:jason@enscribe.dev", label: "Email", icon: Email },
   { href: "/rss.xml", label: "RSS", icon: RSS },
 ]

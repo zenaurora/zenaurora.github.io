@@ -7,6 +7,7 @@ authors:
 image: ./assets/banner.png
 tags:
   - v2
+draft: true
 ---
 
 <style>
