@@ -5,54 +5,64 @@ import Layout from "@/layouts/Layout.astro"
 
 <Layout>
   <MetaPage slot="head" />
-  <dictionary-entry>
-    <h1>er·u·dite</h1>
-    <etymology-span>
-      <ipa-span>/ˈer(y)əˌdīt/</ipa-span>
-      adj. [L. <i>ēruditus</i>, instructed, pp. of <i>ērudīre</i> to instruct,
-      polish, lit. to free from roughness, f. ē- out + <i>rudis</i> rough,
-      untrained]
-    </etymology-span>
-    <ol>
+  <dictionary-entry class="fade-in">
+    <header class="entry-header">
+      <div class="title-row">
+        <h1>mao·kai·he</h1>
+        <span class="cursor" aria-hidden="true"></span>
+      </div>
+      <etymology-span>
+        <span class="part-of-speech">dlut student</span>
+      </etymology-span>
+    </header>
+
+    <ol class="definitions">
       <li>
-        having or showing deep, wide-ranging knowledge acquired through study;
-        learned (<i>an erudite scholar</i>).
+        a software engineering grad student at DUT. knows a bit of Rust and TypeScript, still figuring things out.
       </li>
       <li>
-        (of writing, speech, or argument) reflecting such knowledge; scholarly (<i
-          >an erudite footnote</i
-        >).
+        (noun) someone who enjoys open-source software and tweaking dev environments more than is probably healthy.
       </li>
     </ol>
     <hr>
     <prose-content>
       <p>
-        astro-erudite is
-        <a href="https://enscribe.dev" target="_blank" rel="noopener noreferrer"
-          >enscribe</a
-        >'s opinionated, unstyled static blogging template built with
-        <a href="https://astro.build" target="_blank" rel="noopener noreferrer"
-          >Astro</a
-        >
-        and native CSS. astro-erudite uses no UI or CSS framework and contains
-        minimal dependencies.
+        I mostly write <strong>Rust</strong>, <strong>TypeScript</strong>, and <strong>Python</strong> these days. Switched from Windows to macOS and Linux a while back, and I probably spend too much time configuring my tools instead of actually using them.
       </p>
       <p>
-        To use this template, check out the
-        <a
-          href="https://github.com/jktrn/astro-erudite"
-          target="_blank"
-          rel="noopener noreferrer"
-          >GitHub</a
-        >
-        repository. To learn more about why this template exists, read this blog
-        post: <a href="/blog/introducing-v2">Introducing astro-erudite v2</a>.
+        My lab work is mostly industry projects, which means a lot of Java and enterprise stuff. But I still read AI papers now and then — NeurIPS, CVPR, ICLR. Not because I have to, just because it's interesting even when the math goes over my head.
+      </p>
+      <p>
+        I try to keep up with the Rust community. RFCs, edition updates, that sort of thing.
+        <a href="https://smallcultfollowing.com/babysteps/" target="_blank" rel="noopener noreferrer">Niko Matsakis</a>'
+        blog posts and
+        <a href="https://www.youtube.com/@Tsoding" target="_blank" rel="noopener noreferrer">Tsoding</a>'s
+        streams have probably taught me more about programming than most courses I've taken.
+      </p>
+      <p>
+        Thinking about learning Go at some point. Definitely not looking forward to writing more Java than I have to.
       </p>
     </prose-content>
   </dictionary-entry>
 </Layout>
 
 <style>
+  /* 整体淡入与位移过渡效果 */
+  .fade-in {
+    animation: entryFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes entryFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   dictionary-entry {
     display: block;
     font-size: var(--step-0);
@@ -62,8 +72,20 @@ import Layout from "@/layouts/Layout.astro"
       margin-block-start: -0.2em;
     }
 
-    ipa-span {
-      opacity: 0.6;
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3xs);
+    }
+
+    etymology-span {
+      opacity: 0.7;
+      font-style: italic;
+      
+      .part-of-speech {
+        font-weight: var(--font-weight-normal);
+        opacity: 0.8;
+      }
     }
 
     h1 {
@@ -71,7 +93,7 @@ import Layout from "@/layouts/Layout.astro"
       line-height: calc(var(--leading-offset) + 1em);
       font-weight: var(--font-weight-medium);
       color: var(--foreground);
-      margin-block-end: var(--space-2xs);
+      margin-block-end: var(--space-3xs);
     }
 
     ol {
@@ -79,15 +101,22 @@ import Layout from "@/layouts/Layout.astro"
       list-style: none;
 
       li {
-        padding-inline-start: 1em;
-        text-indent: -1em;
+        padding-inline-start: 1.2em;
+        text-indent: -1.2em;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
 
         &::before {
           content: counter(list-item);
           display: inline-block;
-          inline-size: 1em;
+          inline-size: 1.2em;
           text-indent: 0;
           font-weight: var(--font-weight-medium);
+        }
+
+        /* 鼠标悬停释义时的微交互 */
+        &:hover {
+          color: var(--foreground);
+          transform: translateX(4px);
         }
 
         + li {
@@ -102,7 +131,60 @@ import Layout from "@/layouts/Layout.astro"
     }
 
     prose-content {
+      display: block;
       margin-block-start: var(--space-xs);
+
+      p {
+        margin-block-end: var(--space-xs);
+        line-height: 1.6;
+
+        strong {
+          color: var(--foreground);
+          font-weight: var(--font-weight-medium);
+        }
+      }
+
+      /* 现代感平滑展开的下划线动画 */
+      a {
+        color: var(--foreground);
+        text-decoration: none;
+        position: relative;
+        transition: color 0.25s ease;
+
+        &::after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          transform: scaleX(0);
+          height: 1px;
+          bottom: -1px;
+          left: 0;
+          background-color: var(--foreground);
+          transform-origin: bottom right;
+          transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        &:hover {
+          &::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+          }
+        }
+      }
+    }
+  }
+
+  .cursor {
+    display: inline-block;
+    inline-size: 3px;
+    block-size: 1.25em;
+    background-color: var(--foreground);
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
     }
   }
 </style>

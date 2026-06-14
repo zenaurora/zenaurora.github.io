@@ -2,7 +2,7 @@
 name: "maokaihe"
 pronouns: "he/him"
 avatar: "https://github.com/zenaurora.png"
-bio: "(~_~)"
+bio: "~(@_@)~"
 mail: "ecrofmaomao@gmail.com"
 socials:
   website: "https://zenaura.github.io"

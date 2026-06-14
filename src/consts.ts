@@ -5,7 +5,7 @@ import RSS from "@/assets/icons/rss.svg"
 import Twitter from "@/assets/icons/twitter.svg"
 
 export const SITE = {
-  title: "astro-erudite",
+  title: "maokaihe's blog",
   description: "My blog built with astro-erudite.",
   author: "maokaihe",
   locale: "en-US",
@@ -24,6 +24,6 @@ export const NAVIGATION = [
 export const SOCIALS: { href: string; label: string; icon: SvgComponent }[] = [
   { href: "https://github.com/zenaurora", label: "GitHub", icon: GitHub },
   { href: "https://x.com/ecrofmaomao", label: "Twitter", icon: Twitter },
-  { href: "mailto:jason@enscribe.dev", label: "Email", icon: Email },
+  { href: "mailto:ecrofmaomao@gmail.com", label: "Email", icon: Email },
   { href: "/rss.xml", label: "RSS", icon: RSS },
 ]
