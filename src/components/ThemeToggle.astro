@@ -1,17 +1,81 @@
 ---
-import MoonIcon from "@/assets/icons/moon.svg"
-import SunIcon from "@/assets/icons/sun.svg"
 ---
 
-<button id="theme-toggle" aria-label="Toggle theme">
-  <light-icon><SunIcon /></light-icon>
-  <dark-icon><MoonIcon /></dark-icon>
-  <gruvbox-icon>🐻</gruvbox-icon>
-  <everforest-icon>🌲</everforest-icon>
-  <nord-icon>❄️</nord-icon>
-  <blackgold-icon>👑</blackgold-icon>
-  <catppuccin-icon>🐱</catppuccin-icon>
-</button>
+<div class="theme-picker" id="theme-picker">
+  <button
+    id="theme-toggle"
+    aria-label="Switch theme"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <circle cx="12" cy="12" r="3"></circle>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+    </svg>
+  </button>
+
+  <div class="theme-dropdown" id="theme-dropdown" role="menu">
+    <button class="theme-option" data-theme-value="light" role="menuitem">
+      <span class="theme-swatch" style="background: #fafafa;"></span>
+      <span class="theme-label">Light</span>
+      <span class="theme-check">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </span>
+    </button>
+    <button class="theme-option" data-theme-value="dark" role="menuitem">
+      <span class="theme-swatch" style="background: #171717;"></span>
+      <span class="theme-label">Dark</span>
+      <span class="theme-check">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </span>
+    </button>
+    <div class="theme-separator"></div>
+    <button class="theme-option" data-theme-value="gruvbox-dark" role="menuitem">
+      <span class="theme-swatch" style="background: #fabd2f;"></span>
+      <span class="theme-label">Gruvbox</span>
+      <span class="theme-check">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </span>
+    </button>
+    <button class="theme-option" data-theme-value="everforest" role="menuitem">
+      <span class="theme-swatch" style="background: #83C092;"></span>
+      <span class="theme-label">Everforest</span>
+      <span class="theme-check">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </span>
+    </button>
+    <button class="theme-option" data-theme-value="nord" role="menuitem">
+      <span class="theme-swatch" style="background: #88c0d0;"></span>
+      <span class="theme-label">Nord</span>
+      <span class="theme-check">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </span>
+    </button>
+    <button class="theme-option" data-theme-value="blackgold" role="menuitem">
+      <span class="theme-swatch" style="background: #d9c07a;"></span>
+      <span class="theme-label">Black Gold</span>
+      <span class="theme-check">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </span>
+    </button>
+    <button class="theme-option" data-theme-value="catppuccin" role="menuitem">
+      <span class="theme-swatch" style="background: #b4befe;"></span>
+      <span class="theme-label">Catppuccin</span>
+      <span class="theme-check">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </span>
+    </button>
+  </div>
+</div>
 
 <style is:global>
   :root[data-theme="light"] {
@@ -41,250 +105,14 @@ import SunIcon from "@/assets/icons/sun.svg"
   :root[data-theme="catppuccin"] {
     color-scheme: dark;
   }
-
-  light-icon {
-    display: inline;
-  }
-
-  dark-icon {
-    display: none;
-  }
-
-  gruvbox-icon {
-    display: none;
-  }
-
-  everforest-icon {
-    display: none;
-  }
-
-  nord-icon {
-    display: none;
-  }
-
-  blackgold-icon {
-    display: none;
-  }
-
-  catppuccin-icon {
-    display: none;
-  }
-
-  :root[data-theme="dark"] {
-    light-icon {
-      display: none;
-    }
-
-    dark-icon {
-      display: inline;
-    }
-
-    gruvbox-icon {
-      display: none;
-    }
-
-    everforest-icon {
-      display: none;
-    }
-
-    nord-icon {
-      display: none;
-    }
-
-    blackgold-icon {
-      display: none;
-    }
-
-    catppuccin-icon {
-      display: none;
-    }
-  }
-
-  :root[data-theme="gruvbox-dark"] {
-    light-icon {
-      display: none;
-    }
-
-    dark-icon {
-      display: none;
-    }
-
-    gruvbox-icon {
-      display: inline;
-    }
-
-    everforest-icon {
-      display: none;
-    }
-
-    nord-icon {
-      display: none;
-    }
-
-    blackgold-icon {
-      display: none;
-    }
-
-    catppuccin-icon {
-      display: none;
-    }
-  }
-
-  :root[data-theme="everforest"] {
-    light-icon {
-      display: none;
-    }
-
-    dark-icon {
-      display: none;
-    }
-
-    gruvbox-icon {
-      display: none;
-    }
-
-    everforest-icon {
-      display: inline;
-    }
-
-    nord-icon {
-      display: none;
-    }
-
-    blackgold-icon {
-      display: none;
-    }
-
-    catppuccin-icon {
-      display: none;
-    }
-  }
-
-  :root[data-theme="nord"] {
-    light-icon {
-      display: none;
-    }
-
-    dark-icon {
-      display: none;
-    }
-
-    gruvbox-icon {
-      display: none;
-    }
-
-    everforest-icon {
-      display: none;
-    }
-
-    nord-icon {
-      display: inline;
-    }
-
-    blackgold-icon {
-      display: none;
-    }
-
-    catppuccin-icon {
-      display: none;
-    }
-  }
-
-  :root[data-theme="blackgold"] {
-    light-icon {
-      display: none;
-    }
-
-    dark-icon {
-      display: none;
-    }
-
-    gruvbox-icon {
-      display: none;
-    }
-
-    everforest-icon {
-      display: none;
-    }
-
-    nord-icon {
-      display: none;
-    }
-
-    blackgold-icon {
-      display: inline;
-    }
-
-    catppuccin-icon {
-      display: none;
-    }
-  }
-
-  :root[data-theme="catppuccin"] {
-    light-icon {
-      display: none;
-    }
-
-    dark-icon {
-      display: none;
-    }
-
-    gruvbox-icon {
-      display: none;
-    }
-
-    everforest-icon {
-      display: none;
-    }
-
-    nord-icon {
-      display: none;
-    }
-
-    blackgold-icon {
-      display: none;
-    }
-
-    catppuccin-icon {
-      display: inline;
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme]) {
-      light-icon {
-        display: none;
-      }
-
-      dark-icon {
-        display: inline;
-      }
-
-      gruvbox-icon {
-        display: none;
-      }
-
-      everforest-icon {
-        display: none;
-      }
-
-      nord-icon {
-        display: none;
-      }
-
-      blackgold-icon {
-        display: none;
-      }
-
-      catppuccin-icon {
-        display: none;
-      }
-    }
-  }
 </style>
 
 <style>
-  button {
+  .theme-picker {
+    position: relative;
+  }
+
+  #theme-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -292,8 +120,11 @@ import SunIcon from "@/assets/icons/sun.svg"
     height: 2rem;
     border-radius: var(--radius-md);
     cursor: pointer;
+    color: var(--muted-foreground);
+    transition: color 0.2s ease, background-color 0.2s ease;
 
     &:hover {
+      color: var(--foreground);
       background-color: color-mix(in oklab, var(--muted) 50%, transparent);
     }
 
@@ -301,32 +132,165 @@ import SunIcon from "@/assets/icons/sun.svg"
       width: 1rem;
       height: 1rem;
     }
+  }
 
-    gruvbox-icon,
-    everforest-icon,
-    nord-icon,
-    blackgold-icon,
-    catppuccin-icon {
-      font-size: 1rem;
-      line-height: 1;
+  .theme-dropdown {
+    position: absolute;
+    bottom: calc(100% + 0.5rem);
+    left: 0;
+    min-width: 10rem;
+    padding: 0.375rem;
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+    z-index: 100;
+
+    @media (width < 64rem) {
+      bottom: auto;
+      top: calc(100% + 0.5rem);
+      left: auto;
+      right: 0;
+      transform: translateY(-4px);
     }
+  }
+
+  .theme-dropdown[data-open] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .theme-separator {
+    height: 1px;
+    margin: 0.25rem 0.375rem;
+    background-color: var(--border);
+  }
+
+  .theme-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.375rem 0.5rem;
+    border-radius: calc(var(--radius-md) - 2px);
+    cursor: pointer;
+    color: var(--muted-foreground);
+    font-size: 0.8125rem;
+    transition: background-color 0.1s ease, color 0.1s ease;
+
+    &:hover {
+      background-color: color-mix(in oklab, var(--muted) 60%, transparent);
+      color: var(--foreground);
+    }
+
+    &[data-active] {
+      color: var(--foreground);
+    }
+  }
+
+  .theme-swatch {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+  }
+
+  .theme-label {
+    flex: 1;
+    text-align: left;
+  }
+
+  .theme-check {
+    opacity: 0;
+    color: var(--foreground);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .theme-option[data-active] .theme-check {
+    opacity: 1;
   }
 </style>
 
 <script>
-  const themes = ["light", "dark", "gruvbox-dark", "everforest", "nord", "blackgold", "catppuccin"]
+  function initThemePicker() {
+    const picker = document.getElementById("theme-picker")
+    const toggle = document.getElementById("theme-toggle")
+    const dropdown = document.getElementById("theme-dropdown")
+    if (!picker || !toggle || !dropdown) return
 
-  const toggleTheme = () => {
-    const root = document.documentElement
-    const currentTheme = root.dataset.theme || "light"
-    const currentIndex = themes.indexOf(currentTheme)
-    const nextIndex = (currentIndex + 1) % themes.length
-    const nextTheme = themes[nextIndex]
+    const options = dropdown.querySelectorAll<HTMLButtonElement>(".theme-option")
 
-    root.dataset.theme = nextTheme
-    localStorage.theme = nextTheme
+    function updateActiveState() {
+      const current = document.documentElement.dataset.theme || "light"
+      options.forEach((opt) => {
+        if (opt.dataset.themeValue === current) {
+          opt.setAttribute("data-active", "")
+        } else {
+          opt.removeAttribute("data-active")
+        }
+      })
+    }
+
+    function openDropdown() {
+      dropdown.setAttribute("data-open", "")
+      toggle.setAttribute("aria-expanded", "true")
+    }
+
+    function closeDropdown() {
+      dropdown.removeAttribute("data-open")
+      toggle.setAttribute("aria-expanded", "false")
+    }
+
+    function isOpen() {
+      return dropdown.hasAttribute("data-open")
+    }
+
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation()
+      if (isOpen()) {
+        closeDropdown()
+      } else {
+        updateActiveState()
+        openDropdown()
+      }
+    })
+
+    options.forEach((opt) => {
+      opt.addEventListener("click", () => {
+        const theme = opt.dataset.themeValue
+        if (theme) {
+          document.documentElement.dataset.theme = theme
+          localStorage.theme = theme
+          updateActiveState()
+          closeDropdown()
+        }
+      })
+    })
+
+    document.addEventListener("click", (e) => {
+      if (!picker.contains(e.target as Node)) {
+        closeDropdown()
+      }
+    })
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen()) {
+        closeDropdown()
+        toggle.focus()
+      }
+    })
+
+    updateActiveState()
   }
 
-  const button = document.getElementById("theme-toggle")
-  if (button) button.onclick = toggleTheme
+  initThemePicker()
+
+  document.addEventListener("astro:after-swap", initThemePicker)
 </script>
