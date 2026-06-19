@@ -17,29 +17,29 @@ import Layout from "@/layouts/Layout.astro"
     </header>
 
     <ol class="definitions">
-      <li>
+      <li data-decrypt-text>
         a software engineering grad student at DUT. knows a bit of Rust and TypeScript, still figuring things out.
       </li>
-      <li>
+      <li data-decrypt-text>
         (noun) someone who enjoys open-source software and tweaking dev environments more than is probably healthy.
       </li>
     </ol>
     <hr>
     <prose-content>
-      <p>
+      <p data-decrypt-text>
         I mostly write <strong>Rust</strong>, <strong>TypeScript</strong>, and <strong>Python</strong> these days. Switched from Windows to macOS and Linux a while back, and I probably spend too much time configuring my tools instead of actually using them.
       </p>
-      <p>
+      <p data-decrypt-text>
         My lab work is mostly industry projects, which means a lot of Java and enterprise stuff. But I still read AI papers now and then — NeurIPS, CVPR, ICLR. Not because I have to, just because it's interesting even when the math goes over my head.
       </p>
-      <p>
+      <p data-decrypt-text>
         I try to keep up with the Rust community. RFCs, edition updates, that sort of thing.
         <a href="https://smallcultfollowing.com/babysteps/" target="_blank" rel="noopener noreferrer">Niko Matsakis</a>'
         blog posts and
         <a href="https://www.youtube.com/@Tsoding" target="_blank" rel="noopener noreferrer">Tsoding</a>'s
         streams have probably taught me more about programming than most courses I've taken.
       </p>
-      <p>
+      <p data-decrypt-text>
         Thinking about learning Go at some point. Definitely not looking forward to writing more Java than I have to.
       </p>
     </prose-content>
@@ -174,6 +174,27 @@ import Layout from "@/layouts/Layout.astro"
     }
   }
 
+  [data-decrypt-text] {
+    --decrypt-encrypted-color: color-mix(in oklab, var(--muted-foreground) 76%, transparent);
+  }
+
+  .decrypt-char {
+    display: inline-block;
+    text-align: center;
+    white-space: pre;
+    transition:
+      color 0.18s ease,
+      opacity 0.18s ease;
+  }
+
+  .decrypt-char.is-encrypted {
+    color: var(--decrypt-encrypted-color);
+  }
+
+  .decrypt-char.is-revealed {
+    color: inherit;
+  }
+
   .cursor {
     display: inline-block;
     inline-size: 3px;
@@ -188,3 +209,98 @@ import Layout from "@/layouts/Layout.astro"
     }
   }
 </style>
+
+<script>
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
+
+  const defaultDecryptChars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*+-=?<>"
+
+  const randomChar = (pool) => pool[Math.floor(Math.random() * pool.length)] || "X"
+
+  const revealDecryptText = (root, blockIndex) => {
+    const textNodes = []
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.textContent || !node.textContent.trim()) {
+          return NodeFilter.FILTER_REJECT
+        }
+        return NodeFilter.FILTER_ACCEPT
+      },
+    })
+
+    while (walker.nextNode()) {
+      textNodes.push(walker.currentNode)
+    }
+
+    if (textNodes.length === 0) return
+
+    const originalChars = []
+    for (const node of textNodes) {
+      for (const char of Array.from(node.textContent)) {
+        if (!/\s/.test(char)) originalChars.push(char)
+      }
+    }
+
+    const pool = Array.from(new Set(originalChars)).join("") || defaultDecryptChars
+    const charSpans = []
+
+    for (const node of textNodes) {
+      const fragment = document.createDocumentFragment()
+
+      for (const char of Array.from(node.textContent)) {
+        if (/\s/.test(char)) {
+          fragment.append(document.createTextNode(char))
+          continue
+        }
+
+        const span = document.createElement("span")
+        span.className = "decrypt-char is-encrypted"
+        span.dataset.target = char
+        span.textContent = char
+        fragment.append(span)
+        charSpans.push(span)
+      }
+
+      node.parentNode.replaceChild(fragment, node)
+    }
+
+    requestAnimationFrame(() => {
+      for (const span of charSpans) {
+        const width = span.getBoundingClientRect().width
+        span.style.inlineSize = `${Math.max(width, 1)}px`
+        span.textContent = randomChar(pool)
+      }
+
+      let revealed = 0
+      const burst = Math.max(1, Math.round(charSpans.length / 36))
+      const tickMs = 28
+      const startDelay = 140 + blockIndex * 120
+
+      window.setTimeout(() => {
+        const runningId = window.setInterval(() => {
+          for (let i = revealed; i < charSpans.length; i++) {
+            charSpans[i].textContent = randomChar(pool)
+          }
+
+          for (let step = 0; step < burst && revealed < charSpans.length; step += 1) {
+            const span = charSpans[revealed]
+            span.textContent = span.dataset.target
+            span.classList.remove("is-encrypted")
+            span.classList.add("is-revealed")
+            revealed += 1
+          }
+
+          if (revealed >= charSpans.length) {
+            window.clearInterval(runningId)
+          }
+        }, tickMs)
+      }, startDelay)
+    })
+  }
+
+  if (!prefersReducedMotion.matches) {
+    const blocks = document.querySelectorAll("[data-decrypt-text]")
+    blocks.forEach((block, index) => revealDecryptText(block, index))
+  }
+</script>
