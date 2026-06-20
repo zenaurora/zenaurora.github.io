@@ -1,3 +1,51 @@
+# maokaihe's blog
+
+My personal blog, built on [astro-erudite](https://github.com/jktrn/astro-erudite) v2 with a bunch of custom tweaks.
+
+**Live:** [zenaurora.github.io](https://zenaurora.github.io/)
+
+## Stack
+
+- [Astro](https://astro.build/) 6 — static site generation
+- [Sätteri](https://satteri.bruits.org/) — Rust-based Markdown processor
+- [Expressive Code](https://expressive-code.com/) — syntax highlighting
+- [Temml](https://temml.org/) — LaTeX math → MathML
+- [Biome](https://biomejs.dev/) — formatting
+- [Bun](https://bun.sh/) — runtime & package manager
+
+## Themes
+
+Ships with 7 color themes, switchable via a dropdown picker:
+
+| Theme | Vibe |
+|-------|------|
+| Light | Clean neutral |
+| Dark | Default dark |
+| Gruvbox | Warm retro |
+| Everforest | Soft forest greens |
+| Nord | Arctic blues |
+| Black Gold | AMOLED luxury |
+| Catppuccin | Pastel mocha |
+
+## Development
+
+```bash
+bun install
+bun dev          # localhost:4321
+bun run build    # production build → dist/
+bun run preview  # preview production build
+bun run format   # format with Biome
+```
+
+Requires Node ≥ 22.12.0.
+
+## Credits
+
+Template by [enscribe](https://enscribe.dev) — [astro-erudite](https://github.com/jktrn/astro-erudite).
+
+## License
+
+[MIT](LICENSE)
 ![Showcase Card](/public/static/opengraph-image.png)
 
 <div align="center">
