@@ -71,9 +71,16 @@ Since I'm really into Rust these days, a lot of the CLI tools I use are written 
 - [lazygit](https://github.com/jesseduffield/lazygit) — terminal UI for git
 
 For Mac:
-- [mo](https://github.com/tw93/mole) — Clean, uninstall, analyze, optimize, and monitor your Mac 
+- [mole](https://github.com/tw93/mole) — Clean, uninstall, analyze, optimize, and monitor your Mac 
 
 For Node version management:
 - [fnm](https://github.com/Schniz/fnm) — written in Rust, easy to use
 
 As for terminal emulators, I've tried [Alacritty](https://alacritty.org/), [Kitty](https://sw.kovidgoyal.net/kitty/), and [Ghostty](https://ghostty.org/). They're all pretty similar for my use case, but I lean towards Kitty a bit more.
+
+---
+
+Update:
+
+Now I find `Qoder`, which is currently good for agent coding. I feel it is close to `Cursor`. I use `Qoder` for two weeks and use its cheap model `Qwen3.7-Max`, even though not good as gpt5.5 and claude, it can finish some medium work with much less cost.
+
