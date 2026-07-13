@@ -49,6 +49,17 @@ const { crumbs } = Astro.props
 </html>
 
 <style>
+  :global(::selection) {
+    color: var(--background);
+    background: color-mix(in oklab, var(--foreground) 82%, transparent);
+  }
+
+  :global(:focus-visible) {
+    outline: 2px solid color-mix(in oklab, var(--foreground) 62%, transparent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
   page-grid {
     position: relative;
     isolation: isolate;

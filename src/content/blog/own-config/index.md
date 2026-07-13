@@ -78,6 +78,12 @@ For Node version management:
 
 As for terminal emulators, I've tried [Alacritty](https://alacritty.org/), [Kitty](https://sw.kovidgoyal.net/kitty/), and [Ghostty](https://ghostty.org/). They're all pretty similar for my use case, but I lean towards Kitty a bit more.
 
+## Agent Skills
+
+- [superpowers](https://github.com/onepointfivem/superpowers) — a set of practical workflows and prompts that help me stay organized when working with AI agents
+- [matt](https://github.com/mattn?tab=repositories) — useful bits and pieces I’ve picked up from Matt’s workflow ideas and tooling preferences
+- [kami](https://github.com/kamilkaz/ka) — another source of agent-style tips and process improvements that I like to reference
+
 ---
 
 Update:

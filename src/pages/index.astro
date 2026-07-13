@@ -17,32 +17,53 @@ import Layout from "@/layouts/Layout.astro"
     </header>
 
     <ol class="definitions">
-      <li data-decrypt-text>
+      <li>
         a software engineering grad student at DUT. knows a bit of Rust and TypeScript, still figuring things out.
       </li>
-      <li data-decrypt-text>
+      <li>
         (noun) someone who enjoys open-source software and tweaking dev environments more than is probably healthy.
       </li>
     </ol>
     <hr>
     <prose-content>
-      <p data-decrypt-text>
+      <p>
         I mostly write <strong>Rust</strong>, <strong>TypeScript</strong>, and <strong>Python</strong> these days. Switched from Windows to macOS and Linux a while back, and I probably spend too much time configuring my tools instead of actually using them.
       </p>
-      <p data-decrypt-text>
+      <p>
         My lab work is mostly industry projects, which means a lot of Java and enterprise stuff. But I still read AI papers now and then — NeurIPS, CVPR, ICLR. Not because I have to, just because it's interesting even when the math goes over my head.
       </p>
-      <p data-decrypt-text>
+      <p>
         I try to keep up with the Rust community. RFCs, edition updates, that sort of thing.
         <a href="https://smallcultfollowing.com/babysteps/" target="_blank" rel="noopener noreferrer">Niko Matsakis</a>'
         blog posts and
         <a href="https://www.youtube.com/@Tsoding" target="_blank" rel="noopener noreferrer">Tsoding</a>'s
         streams have probably taught me more about programming than most courses I've taken.
       </p>
-      <p data-decrypt-text>
+      <p>
         Thinking about learning Go at some point. Definitely not looking forward to writing more Java than I have to.
       </p>
     </prose-content>
+
+
+      <article class="activity-card activity-card--panel">
+        <div class="activity-heading">
+          <span>signal</span>
+          <span class="activity-note">last 365 days</span>
+        </div>
+        <div class="activity-meta">
+          <span>steady output</span>
+          <span>open source + notes</span>
+        </div>
+        <div class="activity-cells activity-cells--panel" data-github-activity aria-hidden="true">
+          {Array.from({ length: 84 }, () => <i style="--level: 0" />)}
+        </div>
+        <div class="activity-legend activity-legend--panel" aria-hidden="true">
+          <span>less</span>
+          {[0, 1, 2, 3, 4].map((level) => <i style={`--level: ${level}`} />)}
+          <span>more</span>
+        </div>
+      </article>
+    </section>
   </dictionary-entry>
 </Layout>
 
@@ -174,133 +195,180 @@ import Layout from "@/layouts/Layout.astro"
     }
   }
 
-  [data-decrypt-text] {
-    --decrypt-encrypted-color: color-mix(in oklab, var(--muted-foreground) 76%, transparent);
+  .activity-compare {
+    display: grid;
+    gap: var(--space-l);
+    margin-block-start: var(--space-xl);
   }
 
-  .decrypt-char {
-    display: inline-block;
-    text-align: center;
-    white-space: pre;
-    transition:
-      color 0.18s ease,
-      opacity 0.18s ease;
+  .activity-card {
+    display: block;
+    padding-block-start: var(--space-s);
+    border-block-start: 1px solid var(--border);
   }
 
-  .decrypt-char.is-encrypted {
-    color: var(--decrypt-encrypted-color);
+  .activity-card--textured {
+    padding-block-start: var(--space-m);
   }
 
-  .decrypt-char.is-revealed {
-    color: inherit;
+  .activity-card--panel {
+    padding: var(--space-s);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: color-mix(in oklab, var(--foreground) 2.5%, transparent);
+  }
+
+  .activity-heading,
+  .activity-legend,
+  .activity-meta {
+    display: flex;
+    align-items: center;
+    color: var(--muted-foreground);
+    font-size: var(--step--1);
+  }
+
+  .activity-heading {
+    justify-content: space-between;
+    margin-block-end: var(--space-xs);
+  }
+
+  .activity-heading > :first-child {
+    color: var(--foreground);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: 0.01em;
+  }
+
+  .activity-note,
+  .activity-caption,
+  .activity-meta {
+    opacity: 0.72;
+  }
+
+  .activity-meta {
+    justify-content: space-between;
+    margin-block-end: var(--space-3xs);
+    font-size: 0.72em;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .activity-caption {
+    max-inline-size: 38ch;
+    margin-block-start: var(--space-xs);
+    font-size: var(--step--1);
+    line-height: 1.5;
+  }
+
+  .activity-cells {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-auto-flow: column;
+    gap: 4px;
+    overflow: hidden;
+  }
+
+  .activity-cells--minimal {
+    gap: 4px;
+  }
+
+  .activity-cells--textured {
+    gap: 5px;
+    padding-block: 2px;
+  }
+
+  .activity-cells--panel {
+    gap: 3px;
+  }
+
+  .activity-cells i,
+  .activity-legend i {
+    display: block;
+    aspect-ratio: 1;
+    border-radius: 3px;
+    background: color-mix(in oklab, var(--foreground) calc(8% + var(--level) * 16%), transparent);
+  }
+
+  .activity-cells i {
+    min-inline-size: 8px;
+    transition: transform 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .activity-card--textured .activity-cells i {
+    border-radius: 999px;
+  }
+
+  .activity-card--panel .activity-cells i {
+    border-radius: 2px;
+  }
+
+  .activity-cells i:hover {
+    transform: translateY(-1px) scale(1.18);
+    background: var(--foreground);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--foreground) 14%, transparent);
+  }
+
+  .activity-legend {
+    justify-content: flex-end;
+    gap: 4px;
+    margin-block-start: var(--space-3xs);
+    font-size: 0.7em;
+  }
+
+  .activity-legend i {
+    inline-size: 8px;
+  }
+
+  .activity-legend--panel {
+    margin-block-start: var(--space-xs);
   }
 
   .cursor {
     display: inline-block;
-    inline-size: 3px;
-    block-size: 1.25em;
-    background-color: var(--foreground);
-    animation: blink 1s step-end infinite;
+    inline-size: 0.45em;
+    block-size: 0.45em;
+    margin-inline-start: var(--space-3xs);
+    border-radius: 50%;
+    background: var(--foreground);
+    opacity: 0.72;
+    box-shadow: 0 0 0 0.3em color-mix(in oklab, var(--foreground) 9%, transparent);
   }
 
-  @keyframes blink {
-    50% {
-      opacity: 0;
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in {
+      animation: none;
     }
   }
 </style>
 
 <script>
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
+  const username = "zenaurora"
+  const grid = document.querySelector("[data-github-activity]")
 
-  const defaultDecryptChars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*+-=?<>"
+  if (grid) {
+    fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`)
+      .then((response) => {
+        if (!response.ok) throw new Error("GitHub activity request failed")
+        return response.json()
+      })
+      .then(({ contributions }) => {
+        const recent = contributions.slice(-84)
+        const grids = document.querySelectorAll("[data-github-activity]")
 
-  const randomChar = (pool) => pool[Math.floor(Math.random() * pool.length)] || "X"
+        grids.forEach((activityGrid) => {
+          const cells = activityGrid.querySelectorAll("i")
 
-  const revealDecryptText = (root, blockIndex) => {
-    const textNodes = []
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-      acceptNode(node) {
-        if (!node.textContent || !node.textContent.trim()) {
-          return NodeFilter.FILTER_REJECT
-        }
-        return NodeFilter.FILTER_ACCEPT
-      },
-    })
-
-    while (walker.nextNode()) {
-      textNodes.push(walker.currentNode)
-    }
-
-    if (textNodes.length === 0) return
-
-    const originalChars = []
-    for (const node of textNodes) {
-      for (const char of Array.from(node.textContent)) {
-        if (!/\s/.test(char)) originalChars.push(char)
-      }
-    }
-
-    const pool = Array.from(new Set(originalChars)).join("") || defaultDecryptChars
-    const charSpans = []
-
-    for (const node of textNodes) {
-      const fragment = document.createDocumentFragment()
-
-      for (const char of Array.from(node.textContent)) {
-        if (/\s/.test(char)) {
-          fragment.append(document.createTextNode(char))
-          continue
-        }
-
-        const span = document.createElement("span")
-        span.className = "decrypt-char is-encrypted"
-        span.dataset.target = char
-        span.textContent = char
-        fragment.append(span)
-        charSpans.push(span)
-      }
-
-      node.parentNode.replaceChild(fragment, node)
-    }
-
-    requestAnimationFrame(() => {
-      for (const span of charSpans) {
-        const width = span.getBoundingClientRect().width
-        span.style.inlineSize = `${Math.max(width, 1)}px`
-        span.textContent = randomChar(pool)
-      }
-
-      let revealed = 0
-      const burst = Math.max(1, Math.round(charSpans.length / 36))
-      const tickMs = 28
-      const startDelay = 140 + blockIndex * 120
-
-      window.setTimeout(() => {
-        const runningId = window.setInterval(() => {
-          for (let i = revealed; i < charSpans.length; i++) {
-            charSpans[i].textContent = randomChar(pool)
-          }
-
-          for (let step = 0; step < burst && revealed < charSpans.length; step += 1) {
-            const span = charSpans[revealed]
-            span.textContent = span.dataset.target
-            span.classList.remove("is-encrypted")
-            span.classList.add("is-revealed")
-            revealed += 1
-          }
-
-          if (revealed >= charSpans.length) {
-            window.clearInterval(runningId)
-          }
-        }, tickMs)
-      }, startDelay)
-    })
-  }
-
-  if (!prefersReducedMotion.matches) {
-    const blocks = document.querySelectorAll("[data-decrypt-text]")
-    blocks.forEach((block, index) => revealDecryptText(block, index))
+          cells.forEach((cell, index) => {
+            const day = recent[index]
+            if (!day) return
+            cell.style.setProperty("--level", String(day.level ?? 0))
+            cell.title = `${day.date}: ${day.count} contribution${day.count === 1 ? "" : "s"}`
+          })
+        })
+      })
+      .catch(() => {
+        document.querySelectorAll("[data-github-activity]").forEach((activityGrid) => {
+          activityGrid.closest(".activity-card")?.setAttribute("data-unavailable", "")
+        })
+      })
   }
 </script>
