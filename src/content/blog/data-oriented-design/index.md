@@ -1,5 +1,5 @@
 ---
-title: "pragraming language learn - C's mistake"
+title: "数据导向设计的解析器-Yuku 博客阅读"
 description: ""
 date: 2026-07-14
 authors:
@@ -252,8 +252,6 @@ parseBody(terminator):
 
 这样，整个 AST 里很多“数量不固定”的信息，最后都被统一成了一个很朴素的形式：**连续数组 + 范围描述**。
 
-这正是数据导向设计里很典型的一种思路：不是先想“这个对象该怎么建模”，而是先想“这些数据最常怎么被访问、怎么才能连续、紧凑、便于批量处理”。当你把很多原本零散的东西收拢到数组里以后，代码结构会变简单，遍历会更快，内存管理也会更省心。
-
 ## 字符串不复制，只保存源代码偏移量
 
 到这里，思路其实已经很清楚了：Yuku 一直在做的事，就是尽量不要把“原本就已经存在的数据”再复制一遍。字符串也是一样。
@@ -378,3 +376,118 @@ bit       = 448 % 32   = 0
 ```
 
 文章称，两个 Unicode 属性合计可从约 512 KB 压缩到约 29 KB。生成程序在构建阶段读取 Unicode 数据库并完成分块、去重，运行时只面对固定数组。
+
+大多数代码文件主要是 ASCII，所以扫描标识符时先使用 256 项小表：
+
+```
+while (pos < src.len and ascii_table[src[pos]]) {
+    pos += 1;
+}
+```
+
+只有看到高位为 1 的字节： byte >= 0x80
+
+才进入 UTF-8 解码和 Unicode 表查询。
+
+## Tree本身就可以被JS使用
+
+Yuku 的原生解析器用 Zig 编写，但是消费端却是JavaScript，原生解析器运行后，Node 需要将 AST 转换为普通对象。
+传统的解析器采用的方法为：
+```
+Zig/Rust AST
+    ↓ JSON.stringify / 原生序列化
+JSON 字符串
+    ↓ 跨 N-API 边界
+JavaScript
+    ↓ JSON.parse
+JS Object AST
+```
+原生解析可能很快，但生成 JSON、复制字符串和 JSON.parse 可能比真正解析代码花费的时间还多。
+
+另一种方式是不经过JSON，直接从native code种调用Node的N-API。
+伪代码类似：
+```
+createObject()
+setProperty(node, "type", createString("BinaryExpression"))
+setProperty(node, "operator", createString("+"))
+setProperty(node, "left", createObject())
+setProperty(node, "right", createObject())
+...
+```
+虽然看起来省略掉了JSON，但是这种设计往往更加糟糕。因为每一个AST节点就需要调用JS引擎的API，分配一个V8对象，设置属性，还有处理引用和垃圾回收问题，这个在native和V8之间的边界反复切换，会带来很多额外的开销。
+
+Yuku之所以可以做到不使用传统的序列化方法，是因为Yuku本身使用了一个扁平化的表示方式。
+子节点不是指针，而是一个u32下标，只要nodes整体数组的布局没有变化，复制到任何位置之后，都可以正常工作。
+
+列表是extras数组中的范围，仍然没有指针，只是指向了extras数组中的一个片段，也就是只有offset和length。
+
+字符串只是源码的一个范围，也就是源代码的一个slice，使用start和end就可以获得字符串的内容。所以不用再重新创建一份字符串，也不需要进行反序列化之类的操作。
+
+因此树中的东西都是与内存位置无关的。
+假设 AST 当前位于 Zig 内存地址：
+`0x10000000`
+复制到 JS 后位于：
+`0x90000000`
+如果 AST 内部存的是绝对指针，复制后就坏了：
+`left = 0x10001230`
+但是如果保存的是：
+`left_node_index = 42`，
+复制到哪里都可以，42永远都指向数组中的低42项
+
+这意味着序列化并非转换过程，而是一次复制操作。
+
+Yuku 将所有内容打包到一个缓冲区中，并以 ArrayBuffer 的形式返回给 JavaScript：
+┌─────────────┬─────────────────┬──────────────┬─────────────┬──────────┬─────────────┐
+│ Header      │ Nodes           │ Extras       │ String Pool │ Comments │ Diagnostics │
+│ 元数据       │ 固定 48B/节点    │ u32 数组      │ 原始字节      │ 注释数据  │ 错误/警告数据│
+└─────────────┴─────────────────┴──────────────┴─────────────┴──────────┴─────────────┘
+
+
+
+## Token Bits 设计
+
+一个Token包括span，tag以及flags。
+
+span是token在源代码中的位置(包括start和end)，tag是token的类型，比如是关键字，数字，标识符等等；flags是一个额外标志位，使用u8类型。
+
+解析器对每个词元都会提出相同的问题：它的优先级是什么，是否为二元运算符，是否为关键字。答案并非通过分支或查找表给出，而是在声明时直接编码在标签的整数值中：
+```zig
+pub const Mask = struct {
+    pub const IsBinaryOp: u32 = 1 << 14;
+    pub const IsUnaryOp: u32 = 1 << 16;
+    pub const IsIdentifierLike: u32 = 1 << 18;
+    pub const IsKeyword: u32 = 1 << 21;
+    pub const PrecShift: u32 = 8; // bits 8..12 hold precedence
+};
+```
+
+例子：TokenTag 的定义
+```
+pub const TokenTag = enum(u32) {
+    // low 8 bits: ordinal. the rest: precomputed answers.
+    plus = 15 | (11 << Mask.PrecShift) | Mask.IsBinaryOp | Mask.IsUnaryOp,
+    star = 17 | (12 << Mask.PrecShift) | Mask.IsBinaryOp,
+    in = 119 | (9 << Mask.PrecShift) | Mask.IsBinaryOp | Mask.IsKeyword
+        | Mask.IsIdentifierLike | Mask.IsUnconditionallyReserved,
+    // ...
+};
+```
+这三行分别定义了 +、*、in 这几个 token 的整数值。
+
+一个一个来看：
+`plus = 15 | (11 << Mask.PrecShift) | Mask.IsBinaryOp | Mask.IsUnaryOp,`
+表示token编号为15，优先级是11，是二元运算符也是一元运算符
+
+`star = 17 | (12 << Mask.PrecShift) | Mask.IsBinaryOp,`
+表示token编号为17，优先级是12，是二元运算符
+
+`in = 119 | (9 << Mask.PrecShift) | Mask.IsBinaryOp | Mask.IsKeyword| Mask.IsIdentifierLike | Mask.IsUnconditionallyReserved,`
+表示token编号为119，优先级是9，是二元运算符，是关键字，是标识符，而且是保留字
+
+由于parser在解析表达式的时候，需要反复的查询这个token的优先级，是不是关键字，是不是标识符，是不是二元运算符等等这些。如果不使用这种编码方式，就需要使用其他方法：
+
+1. switch/if 的分支判断方法，每一个都要进行判断，编译器可能不能将其优化为较快的形式，分支预测也有可能失败
+2. 查表，使用一个数组或者map来存储信息，但是需要使用额外的内存，内存访问可能慢，尤其如果没命中 cache
+
+使用将信息编码进Token对bit位里面的方法，实现了每次查询仅对已在寄存器中的值进行一次移位和掩码操作。无需查表、无需分支、无需加载。
+位运算对于cpu来说是一个很cheap的操作
