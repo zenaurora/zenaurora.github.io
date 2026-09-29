@@ -1,4 +1,16 @@
 
+---
+title: "iRacing Setup 笔记"
+description: "iracing-setup参数详解"
+date: 2026-09-30
+authors:
+  - maokaihe
+tags:
+  - iRacing
+  - Sim Racing
+  - Setup
+---
+
 iracing车辆调教设置笔记，顺序按照官方的setup顺序
 
 

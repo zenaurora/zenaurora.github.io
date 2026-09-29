@@ -1,4 +1,17 @@
 
+---
+title: "0926 Idea：时序 Patch + 原型学习"
+description: "国庆期间要写的 idea 论文初稿：把时序切成 patch，用 patch 间的变化做原型聚类。"
+date: 2026-09-30
+authors:
+  - maokaihe
+tags:
+  - Time Series
+  - Research Ideas
+  - Prototype Learning
+draft: true
+---
+
 国庆期间应该完成的一个idea论文初步书写：
 
 时间序列切分patch，计算patch之间的变化，把这些变化利用prototype方法来做原型学习聚类。
