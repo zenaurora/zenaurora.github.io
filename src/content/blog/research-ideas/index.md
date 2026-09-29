@@ -234,6 +234,10 @@ $$
 
 其他的可用的论文，到时候在看
 
-timestack；patchtst；APT，APN，itransformer，autoformer
+timestack；patchtst；APT，itransformer，autoformer
+
+APN：Rethinking Irregular Time Series Forecasting: A Simple yet Effective Baseline
 
 the forecast after the forecast
+
+然后我还发现可以使用两阶段，比如总体趋势+残差的方法。
