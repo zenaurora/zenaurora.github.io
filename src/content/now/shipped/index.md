@@ -8,6 +8,10 @@ plans:
     title: Newsbrief 项目基本落地可用
     addedAt: 2026-08-22
     finishedAt: 2026-08-22
+  - id: monza-gt3-150-spa-220
+    title: MONZA GT3 在iracing达到1分50以及斯帕赛道达到2分20
+    addedAt: 2026-09-26
+    finishedAt: 2026-10-01
 # Add more entries like:
 # plans:
 #   - id: finished-post

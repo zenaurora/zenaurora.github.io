@@ -1,8 +1,11 @@
 ---
 plans:
-  - id: learn-multimodal-large-models
-    title: 学习多模态大模型
+  - id: read-markstream-vue
+    title: 阅读 Markstream Vue 源码
     addedAt: 2026-08-22
+    deliverable:
+      url: /blog/markstream-vue-reading-notes
+      kind: post
 # Add more entries like:
 # plans:
 #   - id: paused-plan
