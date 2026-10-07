@@ -1,0 +1,113 @@
+/* This long-form guide keeps its reading rhythm within the site's theme. */
+article[data-setup-guide] {
+  > header h1 {
+    max-inline-size: 20ch;
+    font-weight: 550;
+    line-height: 1.4;
+  }
+
+  prose-content {
+    line-height: 1.9;
+    letter-spacing: 0;
+
+    :is(p, li) {
+      letter-spacing: 0;
+    }
+
+    > p {
+      margin-block-end: 1.25em;
+    }
+
+    h2 {
+      margin-block: 3.25rem 1.25rem;
+      padding-block-start: 1.25rem;
+      border-block-start: 1px solid var(--border);
+      font-weight: 550;
+      line-height: 1.6;
+    }
+
+    h3 {
+      margin-block: 2rem 0.75rem;
+      font-weight: 550;
+      line-height: 1.6;
+    }
+
+    strong {
+      font-weight: 600;
+      color: var(--foreground);
+    }
+
+    blockquote {
+      margin-block: 1.5rem;
+      padding: 1rem 1.25rem;
+      border-inline-start: 2px solid var(--primary);
+      background: color-mix(in oklab, var(--muted) 32%, transparent);
+      font-size: var(--step--1);
+      line-height: 1.85;
+      color: var(--prose-foreground);
+
+      > :last-child {
+        margin-block-end: 0;
+      }
+    }
+
+    table {
+      inline-size: 100%;
+      max-inline-size: 100%;
+      margin-block: 1.5rem;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.75;
+
+      thead {
+        background: color-mix(in oklab, var(--muted) 40%, transparent);
+      }
+
+      :is(th, td) {
+        min-inline-size: 8rem;
+        padding: 0.8rem 0.9rem;
+      }
+
+      th {
+        font-weight: 550;
+      }
+    }
+
+    .setup-diagram {
+      margin-block: 1.75rem;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+    }
+
+    .setup-diagram svg {
+      display: block;
+      inline-size: 100%;
+      max-inline-size: 28rem;
+      block-size: auto;
+      margin-inline: auto;
+      overflow: visible;
+      color: var(--primary);
+    }
+
+    .setup-diagram figcaption {
+      margin-block-start: 1rem;
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: var(--prose-foreground);
+    }
+
+    @media (width < 38rem) {
+      table :is(th, td) {
+        min-inline-size: 6.5rem;
+        padding: 0.7rem;
+      }
+
+      h2 {
+        margin-block-start: 2.5rem;
+      }
+
+      .setup-diagram {
+        padding: 0.75rem;
+      }
+    }
+  }
+}

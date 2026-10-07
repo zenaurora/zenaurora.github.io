@@ -1,0 +1,177 @@
+---
+const phases = [
+  {
+    number: "01",
+    name: "入弯",
+    action: "刹车 → 松刹车",
+    question: "车头愿不愿意转？",
+  },
+  {
+    number: "02",
+    name: "弯中",
+    action: "维持速度与转向",
+    question: "哪一轴先失去抓地？",
+  },
+  {
+    number: "03",
+    name: "出弯",
+    action: "回正 → 加油",
+    question: "动力能否平稳落地？",
+  },
+]
+---
+
+<aside class="setup-overview" aria-label="调教的阅读起点">
+  <p class="setup-eyebrow">GARAGE NOTES <span>公路赛车 · GT3</span></p>
+  <p class="setup-overview-title">先找到问题发生在哪一段。</p>
+  <p class="setup-overview-description">
+    同样是“推头”，重刹入弯、高速弯中和加油出弯，可能需要完全不同的调整。
+  </p>
+  <ol class="setup-phases">
+    {phases.map((phase) => (
+      <li>
+        <span class="setup-phase-number" aria-hidden="true">{phase.number}</span>
+        <div>
+          <strong>{phase.name}</strong>
+          <span class="setup-phase-action">{phase.action}</span>
+          <p>{phase.question}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+  <p class="setup-reading-path">
+    阅读路线 <span>理解抓地 → 查参数 → 按症状排查 → 上赛道验证</span>
+  </p>
+  <p class="setup-mobile-hint">较宽的参数表可以左右滑动查看。</p>
+</aside>
+
+<style>
+  .setup-overview {
+    margin-block: var(--space-l) var(--space-xl);
+    padding-block: var(--space-m);
+    border-block: 1px solid var(--border);
+  }
+
+  .setup-eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--primary);
+  }
+
+  .setup-eyebrow span {
+    font-family: var(--font-sans);
+    letter-spacing: 0.03em;
+    color: var(--muted-foreground);
+  }
+
+  .setup-overview-title {
+    margin-block: 0.75rem 0.5rem;
+    font-size: var(--step-2);
+    font-weight: 550;
+    line-height: 1.5;
+    text-wrap: balance;
+  }
+
+  .setup-overview-description {
+    max-inline-size: 34rem;
+    font-size: var(--step--1);
+    line-height: 1.8;
+    color: var(--prose-foreground);
+  }
+
+  .setup-phases {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-block: var(--space-m);
+    padding: 0;
+    list-style: none;
+    background: color-mix(in oklab, var(--muted) 38%, transparent);
+  }
+
+  .setup-phases li {
+    display: flex;
+    gap: 0.65rem;
+    padding: 1rem 0.85rem;
+  }
+
+  .setup-phases li + li {
+    border-inline-start: 1px solid var(--border);
+  }
+
+  .setup-phase-number {
+    padding-block-start: 0.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted-foreground);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .setup-phases strong {
+    display: block;
+    margin-block-end: 0.25rem;
+    font-size: var(--step-0);
+    font-weight: 550;
+  }
+
+  .setup-phase-action,
+  .setup-phases p {
+    font-size: 0.75rem;
+    line-height: 1.7;
+    color: var(--prose-foreground);
+  }
+
+  .setup-phases p {
+    margin-block-start: 0.25rem;
+    color: var(--muted-foreground);
+  }
+
+  .setup-reading-path {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.85rem;
+    font-size: 0.75rem;
+    line-height: 1.7;
+    color: var(--muted-foreground);
+  }
+
+  .setup-reading-path span {
+    color: var(--prose-foreground);
+  }
+
+  .setup-mobile-hint {
+    display: none;
+    margin-block-start: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+  }
+
+  @media (width < 38rem) {
+    .setup-mobile-hint {
+      display: block;
+    }
+
+    .setup-phases {
+      grid-template-columns: 1fr;
+    }
+
+    .setup-phases li {
+      gap: 1rem;
+      padding: 0.85rem 1rem;
+    }
+
+    .setup-phases li + li {
+      border-inline-start: 0;
+      border-block-start: 1px solid var(--border);
+    }
+
+    .setup-phases strong {
+      display: inline;
+      margin-inline-end: 0.75rem;
+    }
+  }
+</style>

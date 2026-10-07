@@ -5,6 +5,8 @@ import ScrollToTop from "@/components/ScrollToTop.astro"
 import SeriesIndex from "@/components/SeriesIndex.astro"
 import SeriesReader from "@/components/SeriesReader.astro"
 import TableOfContents from "@/components/TableOfContents.astro"
+import SetupGuideOverview from "@/components/SetupGuideOverview.astro"
+import "@/styles/setup-guide.css"
 import Layout from "@/layouts/Layout.astro"
 import { getPosts, getSubposts, pageTitle } from "@/lib/content"
 import { formatDate, isSubpost, subpostSlug } from "@/lib/utils"
@@ -52,7 +54,10 @@ const sections = rendered.map(({ entry, headings }, i) => ({
   label: entry.data.title,
   open: entry.id === post.id,
   headings: headings.filter(
-    ({ depth, text }) => depth >= 2 && depth <= 4 && text.trim(),
+    ({ depth, text }) =>
+      depth >= 2 &&
+      depth <= (entry.id === "iracing-setup" ? 2 : 4) &&
+      text.trim(),
   ),
 }))
 const hasToc =
@@ -86,6 +91,7 @@ if (isSubpost(post.id)) {
         data-url={`/blog/${entry.id}`}
         data-title={pageTitle(entry.data.title)}
         data-embedded={i > 0 || undefined}
+        data-setup-guide={entry.id === "iracing-setup" || undefined}
       >
         <header>
           <h1>{entry.data.title}</h1>
@@ -128,6 +134,7 @@ if (isSubpost(post.id)) {
           </post-meta>
           <p>{entry.data.description}</p>
         </header>
+        {entry.id === "iracing-setup" && <SetupGuideOverview />}
         {entry.data.image && (
           <post-banner>
             <Image
