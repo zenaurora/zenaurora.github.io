@@ -1,0 +1,244 @@
+[
+  {
+    "id": 1,
+    "name": "walking",
+    "label": "走路",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 2,
+    "name": "happy",
+    "label": "开心",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 3,
+    "name": "greeting",
+    "label": "挥手",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 4,
+    "name": "cute",
+    "label": "卖萌",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 5,
+    "name": "relaxing",
+    "label": "喝饮料",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 6,
+    "name": "running",
+    "label": "奔跑",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 7,
+    "name": "running-fast",
+    "label": "冲刺",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 8,
+    "name": "jumping",
+    "label": "跳起来",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 9,
+    "name": "jumping-playful",
+    "label": "蹦蹦跳跳",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 10,
+    "name": "sitting",
+    "label": "坐着晃腿",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 11,
+    "name": "joyful",
+    "label": "收到礼物",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 12,
+    "name": "sad",
+    "label": "垂头丧气",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 13,
+    "name": "crying",
+    "label": "揉眼睛",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 14,
+    "name": "holding",
+    "label": "拿着笔",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 15,
+    "name": "drawing",
+    "label": "画画中",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 16,
+    "name": "in-love",
+    "label": "心动",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 17,
+    "name": "in-love-pink",
+    "label": "爱你呀",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 18,
+    "name": "angry",
+    "label": "生气",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 19,
+    "name": "shocked",
+    "label": "震惊",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 20,
+    "name": "dancing",
+    "label": "跳舞",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 21,
+    "name": "ice-skates",
+    "label": "滑冰",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  },
+  {
+    "id": 22,
+    "name": "heart",
+    "label": "送你一颗心",
+    "size": [
+      512,
+      512
+    ],
+    "frames": 48,
+    "duration_ms": 2400
+  }
+]
