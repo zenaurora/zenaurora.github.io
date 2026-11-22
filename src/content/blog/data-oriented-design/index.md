@@ -1,6 +1,6 @@
 ---
 title: "数据导向设计的解析器-Yuku 博客阅读"
-description: ""
+description: "阅读 Yuku 的 Data Oriented Design 博客，整理高性能解析器里的数据导向设计思路。"
 date: 2026-07-14
 image: ./assets/banner.jpg
 authors:

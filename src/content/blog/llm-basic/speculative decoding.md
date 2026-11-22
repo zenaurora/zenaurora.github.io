@@ -1,3 +1,15 @@
+---
+title: "Speculative Decoding：Medusa 与 EAGLE"
+description: "梳理投机解码的 draft 与 verify 两个阶段，以及 Medusa 的 Tree Attention 与 EAGLE 的特征级 draft 思路。"
+date: 2026-11-21
+order: 10
+authors:
+  - maokaihe
+tags:
+  - LLM
+  - Speculative Decoding
+  - Inference
+---
 
 分为两个阶段：draft 和 veriy 阶段
 

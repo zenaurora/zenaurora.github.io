@@ -1,3 +1,16 @@
+---
+title: "向量检索：numpy 暴力检索与 HNSW"
+description: "对比 numpy 全量矩阵乘法的暴力检索与 HNSW 分层小世界图的近似最近邻，并给出两者的查询代码。"
+date: 2026-11-21
+order: 3
+authors:
+  - maokaihe
+tags:
+  - Vector Search
+  - HNSW
+  - numpy
+  - ANN
+---
 
 使用 numpy 的时候是暴力检索：
 ```python

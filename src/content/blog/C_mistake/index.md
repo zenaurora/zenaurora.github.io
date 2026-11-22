@@ -1,6 +1,6 @@
 ---
 title: "pragraming language learn - C's mistake"
-description: ""
+description: "根据 Digital Mars 的文章，整理 C 语言设计里那个最有争议的选择。"
 date: 2026-06-15
 authors:
   - maokaihe

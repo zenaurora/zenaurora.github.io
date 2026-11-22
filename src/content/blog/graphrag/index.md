@@ -1,3 +1,16 @@
+---
+title: "Graph RAG 核心概念笔记"
+description: "整理 Graph RAG 的实体与关系抽取、图与社区报告的存储结构，以及 local 与 global 两种查询模式。"
+date: 2026-11-21
+authors:
+  - maokaihe
+tags:
+  - Graph RAG
+  - RAG
+  - Knowledge Graph
+  - LLM
+---
+
 Graph RAG 核心概念：
 
 ## 实体和关系
@@ -193,7 +206,9 @@ level 2：继续直到所有社区都小于阈值，或拆不动为止
 
 **先挑社区报告。** 从图存储的 `community_schema()` 里筛出 `level <= QueryParam.level` 的社区。默认 `level=2`，所以第 0、1、2 层都可能入选，父社区和子社区也可以同时被选中。按 `occurrence`（社区覆盖的 chunk 数相对于最大社区的比例）降序取前 `global_max_consider_community` 个，默认 512 个。
 
-用这些社区 ID 去 `community_reports` 批量读报告。跳过缺失的报告，以及 `report_json.rating` 低于 `global_min_community_rating`（默认 0）的报告，再按 `(occurrence, rating)` 降序排列。到这里为止，选哪些报告还和问题内容无关。[候选选择源码](https://github.com/gusye1234/nano-graphrag/blob/acb35c065614eb5a2f5f1be9a56b235f5a2e0a7a/nano_graphrag/_op.py#L1017-L1061)
+用这些社区 ID 去 `community_reports` 批量读报告。跳过缺失的报告，以及 `report_json.rating` 低于 `global_min_community_rating`（默认 0）的报告，再按 `(occurrence, rating)` 降序排列。到这里为止，选哪些报告还和问题内容无关。
+
+global 的主排序键是 occurrence 而不是 rating。也就是说"覆盖文本多的大社区"比"LLM 觉得重要的社区"优先级更高。
 
 **Map：从每组报告提取能回答问题的要点。** 按上面的顺序把报告逐份装进各组，用 `report_string` 的 token 数估算每组大小，预算由 `global_max_token_for_community_report` 控制（默认 16,384）。每组拼成 `id, content, rating, importance` 的 CSV，其中 `content` 是报告正文，`importance` 是社区的 `occurrence`。然后并发请求 LLM，每组 CSV 放进各自的 system prompt，原始问题作为 user prompt。LLM 返回一组 `points`，并给每条要点打 `0–100` 分，表示它对回答当前问题有多大帮助；回答不了就给 0 分。这个 `score` 是在查询时打的，报告本身的 `rating` 在索引阶段就已经生成了。[Map 源码](https://github.com/gusye1234/nano-graphrag/blob/acb35c065614eb5a2f5f1be9a56b235f5a2e0a7a/nano_graphrag/_op.py#L970-L1014)
 

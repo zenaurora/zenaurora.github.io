@@ -1,3 +1,17 @@
+---
+title: "DSPy 核心概念与实战流程"
+description: "用编程替代手写 Prompt：Signature、Module、Metric、Optimizer 四大基石，七步开发流程，以及一个 RAG 自动优化示例。"
+date: 2026-11-21
+order: 2
+authors:
+  - maokaihe
+tags:
+  - DSPy
+  - LLM
+  - Prompt Engineering
+  - RAG
+---
+
 # DSPy 核心概念与实战流程全解
 
 > **核心哲学**：**Programming—not prompting—LMs**（用代码与模块化编程替代手工调试 Prompt）。  
