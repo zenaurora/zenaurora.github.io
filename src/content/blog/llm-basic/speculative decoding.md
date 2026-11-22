@@ -77,7 +77,7 @@ token embedding 是文本的转化而非深层网络提取的特征，是缺乏�
 - Feature：$f_1,f_2,\ldots,f_i$
 - Token：$t_2,t_3,\ldots,t_{i+1}$
 
-![[Pasted image 20261030220811.png]]
+![EAGLE 的目标模型与 draft 模型结构](./assets/eagle-feature-extrapolator-architecture.png)
 
 medusa 的树是通过 draft tokens 的 笛卡尔积生成的，而 eagle 的树是通过不同的 draft token，生成不同的新的子节点。这样就是天然去掉了树中的无用的分支，verify 时候所需要验证的序列的长度大大缩小，并且路径中的节点是有参考过前一个时刻的信息的，所以这样接受率也会更高一点
 

@@ -10,6 +10,6 @@ tags:
   - LLM
 ---
 
-![[Pasted image 20261121203102.png]]
+![SAG2 的索引与检索流程](./assets/sag2-indexing-and-retrieval-workflow.png)
 
 传统的 RAG 存在全局宏观问答无力，多跳推理的问题
