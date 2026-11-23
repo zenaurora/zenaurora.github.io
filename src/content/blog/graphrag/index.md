@@ -232,3 +232,40 @@ Importance Score: 85
 
 local 从命中实体出发，能把附近的关系和原文 chunk 一起交给 LLM。global 可以把分散在不同社区的信息汇总起来，但模型能看到的细节取决于社区报告有没有写进去。报告分成几组，就要做几次 Map；汇成最终回答还要再做一次 Reduce。
 
+
+
+## 总结一下
+
+local 模式下，用户发起查询之后，把 query 作 embedding，在 entities vdb 里面余弦检索top k 个实体；然后把拿到的这些实体的名字，去图里面查询实体的详细信息。图里面存储了每个节点的属性，描述，sourceid 和clusters 信息，以及拿到了每个节点的度数；接下来从节点的 clusters 字段读出所在的社区，统计每个社区命中了几次，然后去 普通 KV 数据库里面取出社区报告，按照(命中次数，rating)排序截断取出；然后把节点信息里面的 source id 信息去文本块库中把对应的 chunk 原文拿到，同时把每个节点的一跳的邻区的实体的 source id 拿到，这些邻区的实体对应的 source id 可能会很多，但是上下文有限，所以排序。
+
+排序逻辑是这样：
+首先看一下这个 chunk 来自命中的第几相似的实体（实体命中完也会按照相似度排序），然后另一个就是 
+
+```python
+# hit_entities 已按向量相似度降序，rank=0 最相似
+text_units = [split(e.source_id) for e in hit_entities]  # 每个命中实体的 chunk 列表
+edges      = get_nodes_edges(hit_entities)  # 每个命中实体的一跳边
+
+# 一跳邻居 -> 邻居的 chunk 集合
+one_hop    = {tgt for es in edges for (src, tgt) in es}
+neighbor_chunks = {n: set(split(get_node(n).source_id)) for n in one_hop}
+
+lookup = {}         # chunk_id -> {data, order, hits}
+for order, (these_units, these_edges) in enumerate(zip(text_units, edges)):
+    for cid in these_units:
+        if cid in lookup:
+            continue     # 先到先得 = 归属最相似实体
+        hits = 0
+        for (src, tgt) in these_edges:     # 只数「当前实体」的边
+            if tgt in neighbor_chunks and cid in neighbor_chunks[tgt]:
+                hits += 1
+        lookup[cid] = {"data": get_chunk(cid), "order": order, "relation_counts": hits}
+
+ranked = sorted(lookup.values(), key=lambda x: (x["order"], -x["relation_counts"]))
+chunks = truncate_by_token(ranked, budget=local_max_token_for_text_unit)  # token 截断
+
+```
+
+然后把命中的这些实体中，在图里面的一跳边取出边的属性和度数并按照(rank,weight)排序截断。
+
+接下来把社区报告，实体，关系，和源文本块组装起来，送给 LLM 调用得到结果。
